@@ -7,9 +7,9 @@ Front-end em HTML, CSS e JavaScript (módulos ES) seguindo o padrão **MVC**. Ba
 
 | Camada | Pasta | Responsabilidade |
 |---|---|---|
-| **Model** | `js/models/` | Acesso ao banco (Supabase) e regras de negócio. Não conhece HTML. |
-| **View** | `js/views/` | Funções que recebem dados e devolvem HTML. Não acessam o banco. |
-| **Controller** | `js/controllers/` | Recebem os cliques, chamam os Models e escolhem a View a exibir. |
+| **Model** | `src/models/` | Acesso ao banco (Supabase) e regras de negócio. Não conhece HTML. |
+| **View** | `src/views/` | Funções que recebem dados e devolvem HTML. Não acessam o banco. |
+| **Controller** | `src/controllers/` | Recebem os cliques, chamam os Models e escolhem a View a exibir. |
 
 ```
 agendafacil/
