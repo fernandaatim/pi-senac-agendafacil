@@ -1,4 +1,4 @@
-import { sb, ok } from "./db.js";
+import { sb, ok } from "../config/db.js";
 export const entrar = async (email, password) => ok(await sb.auth.signInWithPassword({ email, password }));
 export const cadastrar = async (email, password, nome, role) =>
   ok(await sb.auth.signUp({ email, password, options: { data: { nome, role } } }));
