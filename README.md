@@ -15,8 +15,8 @@ Front-end em HTML, CSS e JavaScript (módulos ES) seguindo o padrão **MVC**. Ba
 agendafacil/
 ├── index.html            página única (carrega o CSS e o app.js)
 ├── schema.sql            tabelas, regras de segurança (RLS) e limite de horário
-├── css/style.css
-└── js/
+├── assets/css/style.css
+└── src/
     ├── app.js            ponto de entrada: roteia telas e cliques para os controllers
     ├── config.js         URL e chave do Supabase
     ├── state.js          estado (usuário logado, aba atual, seleções)
