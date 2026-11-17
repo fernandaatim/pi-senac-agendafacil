@@ -51,13 +51,13 @@ agendafacil/
     - serviços: criar, listar, editar, excluir;
     - agendamentos: criar, listar, cancelar, excluir;
     - perfil: ler e atualizar.
-11. **Publicação:** projeto no Supabase, `schema.sql` no SQL Editor, URL e chave em `js/config.js`, repositório no GitHub e deploy na Vercel.
+11. **Publicação:** projeto no Supabase, `schema.sql` no SQL Editor, URL e chave em `src/config.js`, repositório no GitHub e deploy na Vercel.
 
 ## Como rodar
 
 1. Crie um projeto em supabase.com e rode o `schema.sql` no **SQL Editor**.
 2. Em **Authentication → Providers → Email**, desligue **Confirm email** (para a demonstração).
-3. Em **Project Settings → API**, copie a **Project URL** e a **anon public key** para `js/config.js`.
+3. Em **Project Settings → API**, copie a **Project URL** e a **anon public key** para `src/config.js`.
 4. Para testar local: `python3 -m http.server 8000` na pasta do projeto e abra `http://localhost:8000` (módulos ES não funcionam abrindo o arquivo direto).
 5. Para publicar: suba a pasta no GitHub, em vercel.com clique em **Add New → Project**, escolha o repositório e **Deploy**.
 
