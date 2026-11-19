@@ -1,22 +1,640 @@
-:root{--bg:#f2f6f5;--ink:#14272b;--mut:#5d7276;--pri:#0e7c7b;--acc:#f2b134;--card:#fff;--line:#d3e0de;--bad:#c8453b;--ok:#1f8a4c}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1b1d;--ink:#e6f0ef;--mut:#93a9ad;--pri:#2f9d9b;--card:#16282b;--line:#27403f}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
-header{padding:14px 20px;border-bottom:1px solid var(--line);font-weight:800;font-size:20px}
-main{max-width:760px;margin:0 auto;padding:20px 20px 60px}
-h1{font-size:clamp(28px,6vw,42px);line-height:1.05;margin:8px 0 12px;font-weight:800;letter-spacing:-.02em}
-h2{font-size:20px;margin:24px 0 8px}p{margin:0 0 12px}.mut{color:var(--mut)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:8px 0}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.sp{justify-content:space-between}.grow{flex:1}
-button{font:inherit;font-weight:600;border:0;border-radius:8px;padding:10px 16px;background:var(--pri);color:#fff;cursor:pointer}
-button.sec{background:transparent;color:var(--ink);border:1px solid var(--line)}
-button.bad{background:var(--bad)}button.sm{padding:6px 10px;font-size:14px}
-:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
-.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 12px}
-.chip.on{background:var(--pri);color:#fff;border-color:var(--pri)}
-label{display:block;font-weight:600;font-size:14px;margin:10px 0 4px}
-input,select,textarea{font:inherit;width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
-.tag{font-size:13px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--ok);color:#fff}.tag.cancelado{background:var(--bad)}
-.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px}
-.err{color:var(--bad);min-height:1.4em}
+:root {
+    --bg: #f2f6f5;
+    --ink: #14272b;
+    --mut: #5d7276;
+    --pri: #374955;
+    --acc: #f2b134;
+    --card: #fff;
+    --line: #d3e0de;
+    --bad: #c8453b;
+    --ok: #1f8a4c
+    
+}
+
+@media(prefers-color-scheme:dark) {
+    :root {
+        --bg: #0f1b1d;
+        --ink: #e6f0ef;
+        --mut: #93a9ad;
+        --pri: #6f8ea3;
+        --card: #16282b;
+        --line: #27403f
+        --ok: #4cc98a;
+        --bad: #e5675c;
+    }
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.5 "Bricolage Grotesque", system-ui, sans-serif
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 32px;
+    background: var(--card);
+    border-bottom: 1px solid var(--line)
+}
+
+body:has(.login) header {
+    display: none
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -.01em
+}
+
+.logo b {
+    color: var(--pri);
+    font-weight: 800
+}
+
+.logo svg {
+    width: 26px;
+    height: 26px;
+    color: var(--pri)
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 0
+}
+
+.user .nome {
+    color: var(--mut);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 40vw
+}
+
+.user .nome b {
+    color: var(--ink)
+}
+
+main {
+    margin: 0 auto;
+    max-width: 760px;
+    padding: 32px 24px 60px
+}
+
+main:has(.login) {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+h1 {
+    font-size: clamp(28px, 6vw, 42px);
+    line-height: 1.05;
+    margin: 8px 0 12px;
+    font-weight: 800;
+    letter-spacing: -.02em
+}
+
+h2 {
+    font-size: 20px;
+    margin: 28px 0 12px
+}
+
+p {
+    margin: 0 0 12px
+}
+
+.mut {
+    color: var(--mut)
+}
+
+.centro {
+    text-align: center
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    width: 100%;
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin: 12px 0
+}
+
+.row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center
+}
+
+.sp {
+    justify-content: space-between
+}
+
+.grow {
+    flex: 1
+}
+
+button {
+    font: inherit;
+    font-weight: 600;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 16px;
+    background: var(--pri);
+    color: #fff;
+    cursor: pointer
+}
+
+button.sec {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line)
+}
+
+button.sm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 14px;
+    font-size: 14px;
+    line-height: 1
+}
+
+button.bad {
+    background: transparent;
+    color: var(--bad);
+    border: 1px solid var(--bad)
+}
+
+button.bad:hover {
+    background: var(--bad);
+    color: #fff
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: capitalize;
+    background: color-mix(in srgb, var(--ok) 15%, transparent);
+    color: var(--ok)
+}
+
+.tag.cancelado {
+    background: color-mix(in srgb, var(--bad) 15%, transparent);
+    color: var(--bad)
+}
+
+button.link {
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--pri);
+    font: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer
+}
+
+button.sair {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    color: var(--mut);
+    padding: 6px 8px
+}
+
+button.sair svg {
+    width: 18px;
+    height: 18px
+}
+
+button.sair:hover {
+    color: var(--bad)
+}
+
+button:disabled {
+    opacity: .7;
+    cursor: wait
+}
+
+:focus-visible {
+    outline: none;
+    border-color: var(--pri)
+}
+
+.chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 8px 0
+}
+
+.tabs {
+    margin-bottom: 8px
+}
+
+.chip {
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    padding: 8px 14px
+}
+
+.chip.on {
+    background: var(--pri);
+    color: #fff;
+    border-color: var(--pri)
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 12px 0 6px
+}
+
+input,
+select,
+textarea {
+    font: inherit;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink)
+}
+
+.slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 8px
+}
+
+.err {
+    color: var(--bad);
+    min-height: 1.4em
+}
+
+.msg {
+    color: var(--ok);
+    min-height: 1.4em
+}
+
+.login {
+    --field: #e9eff6;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 44px 36px 36px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(20, 39, 43, .10)
+}
+
+@media(prefers-color-scheme:dark) {
+    .login {
+        --field: #1d3336
+    }
+}
+
+.login .logo {
+    justify-content: center;
+    margin-bottom: 32px
+}
+
+.login h1 {
+    text-align: center;
+    font-size: 28px;
+    letter-spacing: .04em;
+    margin: 0 0 20px
+}
+
+.login input,
+.login select {
+    background: var(--field);
+    border: 1px solid transparent
+}
+
+.login input:focus-visible,
+.login select:focus-visible {
+    outline: none;
+    border-color: var(--pri)
+}
+
+.login .big {
+    width: 100%;
+    margin-top: 6px;
+    padding: 12px;
+    font-size: 17px
+}
+
+.login .forgot {
+    text-align: right;
+    margin: 8px 0 0
+}
+
+.login .forgot .link {
+    font-size: 14px
+}
+
+.login-alt {
+    text-align: center;
+    margin: 18px 0 0;
+    color: var(--mut)
+}
+
+.spin {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    vertical-align: -2px;
+    border: 2px solid rgba(255, 255, 255, .4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: giro .7s linear infinite
+}
+
+@keyframes giro {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .spin {
+        animation-duration: 2s
+    }
+}
+
+@media(max-width:600px) {
+    header {
+        padding: 12px 16px
+    }
+
+    main {
+        padding: 24px 16px 60px
+    }
+
+    .login {
+        padding: 36px 22px 28px
+    }
+}
+
+#toasts {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+    width: max-content;
+    max-width: calc(100vw - 32px);
+    pointer-events: none
+}
+
+.toast {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: 0 8px 24px rgba(20, 39, 43, .25);
+    border-left: 5px solid var(--ok);
+    animation: entra .25s ease-out
+}
+
+.toast.erro {
+    border-left-color: var(--bad)
+}
+
+.toast.sai {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .25s, transform .25s
+}
+
+@keyframes entra {
+    from {
+        opacity: 0;
+        transform: translateY(12px)
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .toast {
+        animation: none
+    }
+
+    .toast.sai {
+        transition: none
+    }
+}
+
+button {
+    transition: background-color .15s, color .15s, border-color .15s
+}
+
+#body {
+    transition: opacity .12s
+}
+
+#body.busy {
+    opacity: .55;
+    pointer-events: none;
+    transition: opacity .15s .15s
+}
+
+.fade {
+    animation: aparece .28s ease-out
+}
+
+@keyframes aparece {
+    from {
+        opacity: 0;
+        transform: translateY(8px)
+    }
+}
+
+.skel {
+    height: 64px;
+    margin: 12px 0;
+    border-radius: 12px;
+    background: linear-gradient(90deg, var(--line) 25%, var(--card) 50%, var(--line) 75%);
+    background-size: 200% 100%;
+    animation: brilho 1.2s linear infinite
+}
+
+.skel.h {
+    width: 40%;
+    height: 28px
+}
+
+@keyframes brilho {
+    to {
+        background-position: -200% 0
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .fade,
+    .skel {
+        animation: none
+    }
+}
+
+.regras {
+    list-style: none;
+    margin: 10px 0 4px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+    font-size: 13px;
+    color: var(--mut)
+}
+
+.regras li::before {
+    content: "○";
+    display: inline-block;
+    width: 16px
+}
+
+.regras li.ok {
+    color: var(--ok)
+}
+
+.regras li.ok::before {
+    content: "✓";
+    font-weight: 800
+}
+
+dialog.modal {
+    border: 0;
+    padding: 0;
+    border-radius: 14px;
+    width: min(400px, calc(100vw - 32px));
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: 0 20px 60px rgba(20, 39, 43, .3);
+    animation: modal-in .18s ease-out
+}
+
+dialog.modal::backdrop {
+    background: rgba(15, 27, 29, .55);
+    backdrop-filter: blur(2px);
+    animation: fundo .18s ease-out
+}
+
+dialog.modal .corpo {
+    padding: 28px 28px 22px
+}
+
+dialog.modal h2 {
+    margin: 0 0 8px;
+    font-size: 20px
+}
+
+dialog.modal p {
+    margin: 0 0 24px
+}
+
+dialog.modal .acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px
+}
+
+dialog.modal button.danger {
+    background: var(--bad);
+    color: #fff
+}
+
+dialog.modal.saindo {
+    opacity: 0;
+    transform: scale(.97);
+    transition: opacity .15s, transform .15s
+}
+
+dialog.modal.saindo::backdrop {
+    opacity: 0;
+    transition: opacity .15s
+}
+
+@keyframes modal-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(.97)
+    }
+}
+
+@keyframes fundo {
+    from {
+        opacity: 0
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    dialog.modal,
+    dialog.modal::backdrop {
+        animation: none
+    }
+}
+
+a.link {
+    color: var(--pri);
+    font-weight: 600
+}
+
+textarea {
+    resize: vertical
+}
+
+.aviso {
+    padding: 12px 16px;
+    margin: 0 0 12px;
+    border-left: 4px solid var(--acc);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--acc) 18%, transparent)
+}
+
+.obs {
+    display: block;
+    margin-top: 8px;
+    padding-left: 10px;
+    border-left: 3px solid var(--line);
+    font-size: 14px;
+    max-width: 46ch
+}

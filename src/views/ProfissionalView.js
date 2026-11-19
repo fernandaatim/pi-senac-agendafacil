@@ -10,14 +10,21 @@ export function agenda(ags, link, agora) {
   <h2>Histórico</h2>${ags.filter(a => !ativo(a)).reverse().map(q).join("") || `<p class="mut">Atendimentos passados e cancelados aparecem aqui.</p>`}`;
 }
 
-export const servicos = lista => `<h2>Meus serviços</h2>` +
-  (lista.map(s => `<div class="card row sp"><span>${esc(s.nome)} · ${s.dur} min · ${brl(s.preco)}</span><span class="row">
-  <button class="sm sec" data-act="editarServico" data-id="${s.id}" data-nome="${esc(s.nome)}" data-dur="${s.dur}" data-preco="${s.preco}">Editar</button>
-  <button class="sm bad" data-act="excluirServico" data-id="${s.id}">Excluir</button></span></div>`).join("") || `<p class="mut">Cadastre o primeiro serviço abaixo.</p>`) +
-  `<h2>Novo serviço</h2><div class="card"><label for="sn">Nome</label><input id="sn">
-  <div class="row"><div class="grow"><label for="sd">Duração (min)</label><input id="sd" type="number" min="15" step="15"></div>
-  <div class="grow"><label for="sp">Preço (R$)</label><input id="sp" type="number" min="0"></div></div><p></p>
-  <button data-act="addServico">Adicionar serviço</button></div>`;
+export const servicos = (lista, edit) => {
+  const e = lista.find(s => s.id === edit);
+  return `<h2>Meus serviços</h2>` +
+    (lista.map(s => `<div class="card row sp"><div><b>${esc(s.nome)}</b> · ${s.dur} min · ${brl(s.preco)}${s.descricao ? `<br><span class="mut">${esc(s.descricao)}</span>` : ""}</div>
+    <span class="row"><button class="sm sec" data-act="editarServico" data-id="${s.id}">Editar</button>
+    <button class="sm bad" data-act="excluirServico" data-id="${s.id}">Excluir</button></span></div>`).join("") || `<p class="mut">Cadastre o primeiro serviço abaixo.</p>`) +
+    `<h2 id="form-servico">${e ? "Editar serviço" : "Novo serviço"}</h2><div class="card">
+    <label for="sn">Nome</label><input id="sn" value="${esc(e?.nome)}">
+    <div class="row"><div class="grow"><label for="sd">Duração (min)</label><input id="sd" type="number" min="15" step="15" value="${e?.dur ?? ""}"></div>
+    <div class="grow"><label for="sp">Preço (R$)</label><input id="sp" type="number" min="0" value="${e?.preco ?? ""}"></div></div>
+    <label for="sx">Descrição (opcional)</label>
+    <textarea id="sx" rows="3" maxlength="300" placeholder="O que está incluso, cuidados, materiais…">${esc(e?.descricao)}</textarea>
+    <p></p><div class="row"><button data-act="salvarServico" data-id="${e?.id ?? ""}">${e ? "Salvar alterações" : "Adicionar serviço"}</button>
+    ${e ? `<button class="sec" data-act="cancelarEdicao">Cancelar</button>` : ""}</div></div>`;
+};
 
 export const config = (me, dias) => `<h2>Dias de atendimento</h2>
   <div class="chips">${DIAS.map((d, i) => chip(dias.includes(i), "alternarDia", `data-dia="${i}"`, d)).join("")}</div>
